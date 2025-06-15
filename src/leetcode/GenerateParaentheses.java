@@ -6,35 +6,35 @@ import java.util.List;
 class GenerateParentheses {
     List<String> answers = new ArrayList<>();
     public List<String> generateParenthesis(int n) {
-        dfs(0, n, 0, 0, new StringBuilder(""));
+        dfs(0, n, 0, 0, "");
         return answers;
     }
 
-    public void dfs(int index, int n, int openingCount, int sum, StringBuilder current) {
+    public void dfs(int index, int n, int openingCount, int sum, String current) {
         if (index == n*2) {
             answers.add(current.toString());
             return;
         }
         if (sum == 0) {
-            if (openingCount < 3) {
-                dfs(index + 1, n, openingCount + 1, sum + 1, current.append("("));
+            if (openingCount < n) {
+                dfs(index + 1, n, openingCount + 1, sum + 1, current + "(") ;
             } else {
                 return;
             }
         }
         if (sum >= 1) {
-            if (openingCount < 3) {
-                dfs(index + 1, n, openingCount + 1, sum + 1, current.append("("));
-                dfs(index + 1, n, openingCount, sum - 1, current.append(")"));
+            if (openingCount < n) {
+                dfs(index + 1, n, openingCount + 1, sum + 1, current + "(");
+                dfs(index + 1, n, openingCount, sum - 1, current + ")");
             } else {
-                dfs(index + 1, n, openingCount, sum - 1, current.append(")"));
+                dfs(index + 1, n, openingCount, sum - 1, current + ")");
             }
         }
     }
 
     public static void main(String[] args) {
         GenerateParentheses gp = new GenerateParentheses();
-        gp.generateParenthesis(3);
+        System.out.println(gp.generateParenthesis(1));
     }
 }
 
