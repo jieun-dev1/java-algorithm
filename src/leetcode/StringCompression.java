@@ -4,57 +4,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 class StringCompression {
-        public int compress(char[] chars) {
-            int length = chars.length;
-            Map<Character, Integer> group = new HashMap<>();
-            char currentChar = '0';
-            char previousChar = '0';
-            int writeCount =0;
+    Map<Character, Integer> group = new HashMap<>();
 
-            for (int i=0; i< length; i++) {
-                if (length == 1){
-                    return 1;
-                }
-                currentChar = chars[i];
-                if (currentChar!=previousChar) {
-                    //prevent null point exception
-                    if (group.get(previousChar)!=null && group.get(previousChar) > 1) {
-                        String cntStr = String.valueOf(group.get(previousChar));
-                        int cnt = String.valueOf(group.get(previousChar)).length();
-                        int j = 0;
-                        while(j<cnt){
-                            chars[writeCount] = cntStr.charAt(j);
-                            j+=1;
-                            writeCount += 1;
-                        }
-                        group.remove(previousChar);
-                    }
-                    //if first char, just put the currentChar.
-                    chars[writeCount] = currentChar;
-                    previousChar = currentChar;
-                    writeCount += 1;
-                } else  {
-                   group.put(previousChar, group.getOrDefault(previousChar, 1)+1);
-                   //if last ends with ccc.. (which has more than 2 consecutive, ) it might be missed.
-                    if (i == length-1) {
-                        String cntStr = String.valueOf(group.get(previousChar));
-                        int cnt = String.valueOf(group.get(previousChar)).length();
-                        int j = 0;
-                        while(j<cnt){
-                            chars[writeCount] = cntStr.charAt(j);
-                            j+=1;
-                            writeCount += 1;
-                        }
-                        group.remove(previousChar);
+    public int compress(char[] chars) {
+
+        int write = 0;
+        int anchor = 0; //where new group stsarts
+        for (int read = 0; read <= chars.length - 2; read++) {
+            if (read == chars.length-1 || chars[read] != chars[read + 1]) {
+                chars[write++] = chars[read];
+                int count = read - anchor + 1; //count should be the method variable. unless should renew after the below func
+
+                if (count > 1) {
+                    for (char c : String.valueOf(count).toCharArray()) {
+                        chars[write++] = c;
                     }
                 }
+                anchor = read + 1;
             }
-            return writeCount;
         }
-
-        public void removeKeyAndAddCount(){
-
-        }
+        return write;
+    }
 
         public static void main(String[] args) {
             StringCompression sc = new StringCompression();
