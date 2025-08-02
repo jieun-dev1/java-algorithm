@@ -4,20 +4,18 @@ import java.util.Stack;
 
 public class RemoveStar {
     public String removeStars(String s) {
-        Stack<Character> stack = new Stack<>();
         StringBuilder sb = new StringBuilder();
         char[] chars = s.toCharArray();
-        for (char c: chars) {
+        for (char c : chars) {
             if (c == '*') {
-                stack.pop();
+                if (!sb.isEmpty()) {
+                    sb.deleteCharAt(sb.length() - 1);
+                }
             } else {
-                stack.push(c);
+                sb.append(c);
             }
         }
-        while (!stack.isEmpty()){
-            sb.append(stack.pop());
-            sb.reverse();
-        }
+
         return sb.toString();
     }
 
