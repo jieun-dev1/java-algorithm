@@ -1,30 +1,34 @@
 import java.util.HashMap;
+import java.util.Map;
 
+//variable size window
 public class LongestSubstringWithKDistinct {
 
     public int solution(int k, String s) {
-
+        if (s == null || s.isEmpty() || k == 0) {
+            return 0;
+        }
         int left = 0;
-        int right = 0;
         int answer = 0;
 
-        HashMap<Character, Integer> map = new HashMap<>(); //Char 랑, Char 등장 횟수.
+        Map<Character, Integer> charCount = new HashMap<>(); //Char 등장 횟수 - 문자 개수, 요소 빈도 추적
 
-        while (left <= right && right < s.length()) {
-            map.put(s.charAt(right), map.getOrDefault(s.charAt(right), 0) + 1);
-            if (map.size() > k) {
-                map.put(s.charAt(left), map.get(s.charAt(left)) - 1);
-                if (map.get(s.charAt(left)) == 0) {
-                    map.remove((s.charAt(left)));
+        for (int right = 0; right < s.length(); right ++) {
+            //1.현재 문자를 윈도우에 포함
+            char rightChar = s.charAt(right);
+            charCount.put(rightChar, charCount.getOrDefault(rightChar, 0) + 1);
+            //2. 윈도우 축소
+            while (charCount.size() > k) {
+                char leftChar = s.charAt(left);
+                charCount.put(leftChar, charCount.get(leftChar) - 1);
+                //Once it reached 0, get rid of it from the map
+                if (charCount.get(leftChar) == 0) {
+                    charCount.remove(leftChar);
                 }
-                left += 1;
-            } else {
-                answer = Math.max(answer, right - left + 1);
-                right += 1; //여기서 한다면, abc 같은 케이스가 위에서 걸리면, 다음에서 불필요하게, Bc 를 확인해야 함.
+                left ++;
             }
-            right += 1;
+            answer = Math.max(answer, right - left + 1);
         }
-
 
         return answer;
     }
