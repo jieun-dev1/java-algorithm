@@ -32,19 +32,8 @@ class DecoratorStream extends OutputStream {
 
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
-        String content = new String(b, off, len, "UTF-8");
-
-        String[] lines = content.split("\n", -1);
-        StringBuilder result = new StringBuilder();
-
-        for (int i=0; i<lines.length; i++) {
-            result.append(lines[i]);
-            if (i < lines.length - 1){
-                result.append("\n");
-            }
-        }
-        byte[] outputBytes = result.toString().getBytes("UTF-8");
-        stream.write(outputBytes);    }
+        stream.write(b, off, len);
+    }
 
     @Override
     public void write(byte[] b) throws IOException {
