@@ -1,39 +1,36 @@
 package leetcode;
 
-import jdk.jshell.EvalException;
-
-import java.util.Arrays;
+import java.util.Set;
 
 public class Vowels {
     public int maxVowels(String s, int k) {
 
-        char[] vowels = {'a', 'e', 'i', 'o', 'u'};
         int kVowelCnt = 0;
         int maxCount = 0;
 
         for (int i = 0; i < k; i++) {
-            boolean isCurrentVowel = new String(vowels).indexOf(s.charAt(i)) >= 0;
-            if (isCurrentVowel) {
+            char current = s.charAt(i);
+            if (current == 'a' || current == 'e' || current == 'i' || current == 'o' || current == 'u') {
                 kVowelCnt++;
             }
         }
         maxCount = Math.max(maxCount, kVowelCnt);
 
         for (int i = k; i < s.length(); i++) {
-            boolean isCurrentVowel = new String(vowels).indexOf(s.charAt(i - k)) >= 0;
-            boolean isNextVowel = new String(vowels).indexOf(s.charAt(i)) >= 0;
-
-            if (isCurrentVowel) {
+            char current = s.charAt(i-k);
+            char next = s.charAt(i);
+            if (current == 'a' || current == 'e' || current == 'i' || current == 'o' || current == 'u') {
                 kVowelCnt--;
             }
-            if (isNextVowel) {
+
+            if (next == 'a' || next == 'e' || next == 'i' || next == 'o' || next == 'u') {
                 kVowelCnt++;
             }
+
             maxCount = Math.max(maxCount, kVowelCnt);
         }
 
         return maxCount;
-
     }
     public static void main(String[] args) {
         Vowels vowels = new Vowels();
