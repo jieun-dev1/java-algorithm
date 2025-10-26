@@ -6,6 +6,7 @@ import java.util.Queue;
 class NearestExitFromEntrance {
 
 
+
     public int nearestExit(char[][] maze, int[] entrance) {
         return bfs(maze, entrance);
     }
@@ -17,14 +18,16 @@ class NearestExitFromEntrance {
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(entrance);
         boolean[][] visited = new boolean[maze.length][maze[0].length];
+        //There are no exits in this maze.
         int length = -1;
-        //BFS 는 거리 순으로
+        //BFS -> to get the shorted path
         while (!queue.isEmpty()) {
-            int size = queue.size();
+            int size = queue.size(); //to check the depth iteration should happen for the every chunk of queue.
             length += 1;
 
             for (int i = 0; i < size; i++) {
                 int[] location = queue.poll();
+                //when the element is on the edge
                 if (location[0] == 0 || location[0] == maze.length - 1 || location[1] == 0 || location[1] == maze[0].length - 1) {
                     if (maze[location[0]][location[1]] == '.') {
                         //should not be the entrance
@@ -41,7 +44,7 @@ class NearestExitFromEntrance {
                     if (nx < 0 || ny < 0 || nx >= maze.length || ny >= maze[0].length) {
                         continue;
                     }
-                    if (maze[nx][ny] == '.') {
+                    if (maze[nx][ny] == '.'&& !visited[nx][ny]) {
                         visited[nx][ny] = true;
                         queue.offer(new int[]{nx, ny});
                     }
