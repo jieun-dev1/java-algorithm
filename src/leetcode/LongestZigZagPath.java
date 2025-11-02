@@ -10,26 +10,21 @@ public class LongestZigZagPath {
     int maxLength = 0;
 
     public int longestZigZag(TreeNode root) {
-        return Math.max(
-                dfs(true, root, 0),
-                dfs(false, root, 0)
-        );
+        dfs(true, root, 0);
+        dfs(false, root, 0);
+        return maxLength;
     }
 
-    public int dfs(Boolean wasLeft, TreeNode node, int depth) {
-        if (node == null) return depth;
+    public void dfs(Boolean wasLeft, TreeNode node, int depth) {
+        if (node == null) return;
         if (wasLeft) {
-            maxLength = Math.max(
-            dfs(false, node.right, depth + 1),
-            dfs(true, node.left, 0)
-            );
+            dfs(false, node.right, depth + 1);
+            dfs(true, node.left, 1);
         } else {
-            maxLength = Math.max(
-            dfs(true, node.left, depth + 1),
-            dfs(false, node.right, 0)
-            );
+            dfs(true, node.left, depth + 1);
+            dfs(false, node.right, 1);
         }
-        return maxLength;
+        maxLength = Math.max(depth, maxLength);
     }
 
     public static void main(String[] args) {
