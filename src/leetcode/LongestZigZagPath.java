@@ -7,6 +7,7 @@ import java.util.Queue;
 
 public class LongestZigZagPath {
 
+    int maxLength = 0;
 
     public int longestZigZag(TreeNode root) {
         return Math.max(
@@ -18,17 +19,17 @@ public class LongestZigZagPath {
     public int dfs(Boolean wasLeft, TreeNode node, int depth) {
         if (node == null) return depth;
         if (wasLeft) {
-            depth = Math.max(
+            maxLength = Math.max(
             dfs(false, node.right, depth + 1),
             dfs(true, node.left, 0)
             );
         } else {
-            depth = Math.max(
+            maxLength = Math.max(
             dfs(true, node.left, depth + 1),
             dfs(false, node.right, 0)
             );
         }
-        return depth;
+        return maxLength;
     }
 
     public static void main(String[] args) {
