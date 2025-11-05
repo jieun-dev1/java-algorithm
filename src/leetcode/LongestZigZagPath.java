@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+//월요일에 다시 보기
 public class LongestZigZagPath {
 
     int maxLength = 0;
@@ -15,7 +16,7 @@ public class LongestZigZagPath {
         return maxLength;
     }
 
-    public void dfs(Boolean wasLeft, TreeNode node, int depth) {
+    public void dfs(boolean wasLeft, TreeNode node, int depth) {
         if (node == null) return;
         if (wasLeft) {
             dfs(false, node.right, depth + 1);
