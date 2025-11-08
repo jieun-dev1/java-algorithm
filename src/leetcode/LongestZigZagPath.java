@@ -18,13 +18,9 @@ public class LongestZigZagPath {
 
     public void dfs(boolean wasLeft, TreeNode node, int depth) {
         if (node == null) return;
-        if (wasLeft) {
-            dfs(false, node.right, depth + 1);
-            dfs(true, node.left, 1);
-        } else {
-            dfs(true, node.left, depth + 1);
-            dfs(false, node.right, 1);
-        }
+        dfs(true, node.left, wasLeft ? 1 : depth+1);
+        dfs(false, node.right, wasLeft ? depth + 1 : 1);
+
         maxLength = Math.max(depth, maxLength);
     }
 
