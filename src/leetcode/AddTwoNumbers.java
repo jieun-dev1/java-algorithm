@@ -1,12 +1,8 @@
 package leetcode;
 
-import java.util.Stack;
-
 public class AddTwoNumbers {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        //각 자리의 숫자를 더하고, 10을 넘으면 다음 자리로 옮긴다.
-        //자리수가 일치하지 않는다면, 없는 자리에 0을 넣는다.
 
         ListNode dummy = new ListNode(0);
         ListNode cur = dummy;
