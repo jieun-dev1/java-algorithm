@@ -3,8 +3,6 @@ package review;
 import java.util.*;
 
 
-
-
 class threeSum {
     public List<List<Integer>> threeSum(int[] nums) {
         //Set<List<Integer>> 에 정렬해서 넣는다.
