@@ -2,12 +2,15 @@ package review;
 
 import java.util.*;
 
-public class ThreeSum {
+
+
+
+class threeSum {
     public List<List<Integer>> threeSum(int[] nums) {
         //Set<List<Integer>> 에 정렬해서 넣는다.
         Set<List<Integer>> answers = new HashSet<>();
         Arrays.sort(nums);
-        int sum = 0;
+        int sum ;
         for (int i=0; i<nums.length -2; i++) {
             int left = i+1; //i가 포함되니까, 그 오른쪽 부터
             int right = nums.length - 1; //맨 끝까지.
